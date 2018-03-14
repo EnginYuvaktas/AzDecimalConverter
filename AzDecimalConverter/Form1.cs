@@ -15,5 +15,27 @@ namespace AzDecimalConverter
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            GetTicks();
+
+        }
+
+        private void GetTicks()
+        {
+            textBox1.Text = DateTime.Now.Ticks.ToString();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            GetTicks();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            long d = Convert.ToInt64(textBox1.Text);
+            textBox2.Text = d.ToAzDecimal(checkBox1.Checked);
+        }
     }
 }
