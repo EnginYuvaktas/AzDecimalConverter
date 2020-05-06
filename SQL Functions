@@ -1,0 +1,86 @@
+
+CREATE FUNCTION [dbo].[fn_CovertChar] (@asc SMALLINT)
+RETURNS CHAR(1) AS
+BEGIN
+	IF(@asc<10) RETURN CAST(@asc AS CHAR(1));
+	if(@asc = 10) return 'A';
+	if(@asc = 11) return 'B';
+	if(@asc = 12) return 'C';
+	if(@asc = 13) return 'D';
+	if(@asc = 14) return 'E';
+	if(@asc = 15) return 'F';
+	if(@asc = 16) return 'G';
+	if(@asc = 17) return 'H';
+	if(@asc = 18) return 'I';
+	if(@asc = 19) return 'J';
+	if(@asc = 20) return 'K';
+	if(@asc = 21) return 'L';
+	if(@asc = 22) return 'M';
+	if(@asc = 23) return 'N';
+	if(@asc = 24) return 'O';
+	if(@asc = 25) return 'P';
+	if(@asc = 26) return 'Q';
+	if(@asc = 27) return 'R';
+	if(@asc = 28) return 'S';
+	if(@asc = 29) return 'T';
+	if(@asc = 30) return 'U';
+	if(@asc = 31) return 'V';
+	if(@asc = 32) return 'W';
+	if(@asc = 33) return 'X';
+	if(@asc = 34) return 'Y';
+	if(@asc = 35) return 'Z';
+	if(@asc = 36) return 'a';
+	if(@asc = 37) return 'b';
+	if(@asc = 38) return 'c';
+	if(@asc = 39) return 'd';
+	if(@asc = 40) return 'e';
+	if(@asc = 41) return 'f';
+	if(@asc = 42) return 'g';
+	if(@asc = 43) return 'h';
+	if(@asc = 44) return 'i';
+	if(@asc = 45) return 'j';
+	if(@asc = 46) return 'k';
+	if(@asc = 47) return 'l';
+	if(@asc = 48) return 'm';
+	if(@asc = 49) return 'n';
+	if(@asc = 50) return 'o';
+	if(@asc = 51) return 'p';
+	if(@asc = 52) return 'q';
+	if(@asc = 53) return 'r';
+	if(@asc = 54) return 's';
+	if(@asc = 55) return 't';
+	if(@asc = 56) return 'u';
+	if(@asc = 57) return 'v';
+	if(@asc = 58) return 'w';
+	if(@asc = 59) return 'x';
+	if(@asc = 60) return 'y';
+	if(@asc = 61) return 'z';
+
+
+	RETURN CAST(@asc AS CHAR(1));
+END
+
+
+
+CREATE FUNCTION [dbo].[fn_CovertToAZ] (@value BIGINT)
+RETURNS VARCHAR(15) AS
+BEGIN
+
+	DECLARE @result NVARCHAR(15) = ''
+	DECLARE @rem BIGINT  
+	DECLARE @dec SMALLINT = 36
+	DECLARE @asc SMALLINT 
+
+	IF (@value = 0) SET @result =  '0'
+
+
+	while (@value != 0)
+	begin
+		set @rem = @value / @dec;
+		set @asc = Convert(SMALLINT,( @dec * ((convert(decimal,@value) / convert(DECIMAL,@dec)) - @rem)));
+		SET @value = @rem;
+		SET @result = CONCAT([dbo].[fn_CovertChar](@asc), @result);
+	end
+
+	return  @result
+END
